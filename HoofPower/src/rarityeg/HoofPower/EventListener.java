@@ -23,7 +23,7 @@ public class EventListener implements Listener{
     public static final Random RANDOM=new Random();
     public List<Entity> BeAimed= new ArrayList<>();
 
-
+    //提交代码
     public void GivePlayerItem(Player player,ItemStack itemStack,String name,String[] info){
         ItemStack hoe=itemStack;
         ItemMeta hoeMeta=hoe.getItemMeta();
