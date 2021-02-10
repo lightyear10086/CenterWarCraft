@@ -11,11 +11,13 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import rarityeg.HoofPower.task.GameRoundTask;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class HoofPower extends JavaPlugin{
     public static JavaPlugin instance;
@@ -23,6 +25,7 @@ public class HoofPower extends JavaPlugin{
     public List<String> commandslist=new ArrayList<>();
     public List<Player> builderplayerlist=new ArrayList<>();
     public List<Player> ruinerplayerlist=new ArrayList<>();
+    public static List<Block> towerBlockList = new CopyOnWriteArrayList<>();
 
 
     public void Loginfo(String infocontent){
@@ -74,33 +77,43 @@ public class HoofPower extends JavaPlugin{
                 }
                 break;
             case "startgame":
-                getLogger().info(Arrays.toString(args));
-                if(args.length==3){
-                    double x = Double.parseDouble(args[0]);
-                    double y = Double.parseDouble(args[1]);
-                    double z = Double.parseDouble(args[2]);
-
-                    for(int i=0;i<2;i++){
-                        for(int j=0;j<4;j++){
-                            Location location = new Location(((Player) sender).getWorld(), x+i, y, z+j);
-                            Block block = location.getBlock();
-                            block.setType(Material.STONE);
-                        }
-                    }
-                    for(int i=1;i<2;i++){
-                        for(int j=1;j<3;j++){
-                            Location location = new Location(((Player) sender).getWorld(), x+i, y+1, z+j);
-                            Block block = location.getBlock();
-                            block.setType(Material.STONE);
-                        }
-                    }
-
-                }
+                startGameCommand(sender, command, label, args);
                 break;
             default:
                 return false;
         }
 
         return true;
+    }
+
+    private void startGameCommand(CommandSender sender, Command command,String label,String[] args){
+        getLogger().info(Arrays.toString(args));
+        if(args.length==3){
+            double x = Double.parseDouble(args[0]);
+            double y = Double.parseDouble(args[1]);
+            double z = Double.parseDouble(args[2]);
+
+            for(int i=0;i<4;i++){
+                for(int j=0;j<4;j++){
+                    Location location = new Location(((Player) sender).getWorld(), x+i, y, z+j);
+                    Block block = location.getBlock();
+                    if(j>1){
+                        block.setType(Material.STONE);
+                    }
+                    towerBlockList.add(block);
+                }
+            }
+            for(int i=1;i<3;i++){
+                for(int j=1;j<3;j++){
+                    Location location = new Location(((Player) sender).getWorld(), x+i, y+1, z+j);
+                    Block block = location.getBlock();
+                    if(j>1){
+                        block.setType(Material.STONE);
+                    }
+                    towerBlockList.add(block);
+                }
+            }
+            new GameRoundTask(this).runTaskTimer(this, 0,20);
+        }
     }
 }
