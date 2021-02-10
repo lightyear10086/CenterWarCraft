@@ -22,7 +22,7 @@ import java.util.*;
 public class EventListener implements Listener{
     public static final Random RANDOM=new Random();
     public List<Entity> BeAimed= new ArrayList<>();
-
+    //丸子的分支
     //提交代码23
     public void GivePlayerItem(Player player,ItemStack itemStack,String name,String[] info){
         ItemStack hoe=itemStack;
@@ -131,6 +131,7 @@ public class EventListener implements Listener{
                 playerinventory.addItem(hoe);
 
                 GivePlayerItem(player,new ItemStack(Material.GOLDEN_HOE),"收割季节",new String[]{"对所有被魔种标记的目标造成3点伤害"});
+
             }
         }
     }

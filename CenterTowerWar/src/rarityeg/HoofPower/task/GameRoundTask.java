@@ -31,7 +31,7 @@ public class GameRoundTask extends BukkitRunnable {
             HoofPower.towerBlockList.clear();
             this.cancel();
         }
-        plugin.getLogger().info("GameRoundTask count:"+count);
+        //plugin.getLogger().info("GameRoundTask count:"+count);
 
     }
 

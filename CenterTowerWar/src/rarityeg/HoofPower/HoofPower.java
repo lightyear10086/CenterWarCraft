@@ -113,7 +113,7 @@ public class HoofPower extends JavaPlugin{
                     towerBlockList.add(block);
                 }
             }
-            new GameRoundTask(this).runTaskTimer(this, 0,20);
+            new GameRoundTask(this).runTaskTimer(this, 0,5);
         }
     }
 }
