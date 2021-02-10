@@ -1,0 +1,14 @@
+main: rarityeg.HoofPower.HoofPower
+name: CenterTowerWar
+version: 1.0
+api-version: 1.16
+commands:
+  cd:
+    usage: "/cd"
+    description: "Open menu."
+  jointeam:
+    usage: "/jointeam"
+    description: "Join the create team or ruin team."
+  startgame:
+    usage: "/startgame"
+    description: "Create the center tower and game start."
