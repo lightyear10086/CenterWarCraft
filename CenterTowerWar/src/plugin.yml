@@ -15,3 +15,6 @@ commands:
   walkspeed:
     usage: "/walkspeed"
     description: "Change your walk speed."
+  checkwalkspeed:
+    usage: "/checkwalkspeed"
+    description: "Check your walk speed."

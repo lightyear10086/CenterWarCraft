@@ -80,6 +80,12 @@ public class HoofPower extends JavaPlugin{
             case "startgame":
                 startGameCommand(sender, command, label, args);
                 break;
+            case "walkspeed":
+                ((Player) sender).setWalkSpeed(Float.parseFloat(args[0]));
+                break;
+            case "checkwalkspeed":
+                sender.sendMessage("你的行走速度是"+((Player) sender).getWalkSpeed()+"");
+                break;
             default:
                 return false;
         }
