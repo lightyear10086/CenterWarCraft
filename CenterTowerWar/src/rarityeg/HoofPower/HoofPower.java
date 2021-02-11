@@ -48,6 +48,8 @@ public class HoofPower extends JavaPlugin{
         commandslist.add("cd");
         commandslist.add("jointeam");
         commandslist.add("createtower");
+        debughelpercommandslist.add("walkspeed");
+        debughelpercommandslist.add("checkwalkspeed");
     }
 
     @Override
