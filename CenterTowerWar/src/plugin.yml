@@ -12,3 +12,6 @@ commands:
   startgame:
     usage: "/startgame"
     description: "Create the center tower and game start."
+  walkspeed:
+    usage: "/walkspeed"
+    description: "Change your walk speed."

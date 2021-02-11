@@ -23,6 +23,7 @@ public class HoofPower extends JavaPlugin{
     public static JavaPlugin instance;
     public static String playerhero="";
     public List<String> commandslist=new ArrayList<>();
+    public List<String> debughelpercommandslist=new ArrayList<>();//辅助开发测试的指令，包括改变行走速度，飞行速度，攻击速度等指令
     public List<Player> builderplayerlist=new ArrayList<>();
     public List<Player> ruinerplayerlist=new ArrayList<>();
     public static List<Block> towerBlockList = new CopyOnWriteArrayList<>();
