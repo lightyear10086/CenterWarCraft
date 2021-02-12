@@ -1,9 +1,6 @@
 package rarityeg.HoofPower;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -25,8 +22,8 @@ public class HoofPower extends JavaPlugin{
     public List<String> commandslist=new ArrayList<>();
     public List<Player> builderplayerlist=new ArrayList<>();
     public List<Player> ruinerplayerlist=new ArrayList<>();
+    private Integer LeastPlayer=1;//每队人数，两队人数都达到这个数后才能开始（指执行/startgame）游戏
     public static List<Block> towerBlockList = new CopyOnWriteArrayList<>();
-
 
     public void Loginfo(String infocontent){
         getLogger().info(infocontent);
@@ -77,6 +74,10 @@ public class HoofPower extends JavaPlugin{
                 }
                 break;
             case "startgame":
+                if(builderplayerlist.size()!=ruinerplayerlist.size() || builderplayerlist.size()<LeastPlayer || ruinerplayerlist.size()<LeastPlayer){
+                    instance.getServer().broadcastMessage("未达到游戏开始条件");
+                    break;
+                }
                 startGameCommand(sender, command, label, args);
                 break;
             default:
@@ -87,6 +88,7 @@ public class HoofPower extends JavaPlugin{
     }
 
     private void startGameCommand(CommandSender sender, Command command,String label,String[] args){
+
         getLogger().info(Arrays.toString(args));
         if(args.length==3){
             double x = Double.parseDouble(args[0]);
@@ -113,6 +115,21 @@ public class HoofPower extends JavaPlugin{
                     towerBlockList.add(block);
                 }
             }
+
+            World playerWorld=Bukkit.getWorld("world");
+
+            //建设方开局和重生坐标点
+            Location builderbeginpos=new Location(playerWorld,x,y+14,z);
+            //拆除方开局和重生坐标点
+            Location ruinerbeginpos=new Location(playerWorld,x,y-10,z);
+            //将所有玩家传送到对应队伍开局坐标点
+            for(Player builder:builderplayerlist){
+                builder.teleport(builderbeginpos);
+            }
+            for(Player ruiner:ruinerplayerlist){
+                ruiner.teleport(ruinerbeginpos);
+            }
+
             new GameRoundTask(this).runTaskTimer(this, 0,20);
         }
     }

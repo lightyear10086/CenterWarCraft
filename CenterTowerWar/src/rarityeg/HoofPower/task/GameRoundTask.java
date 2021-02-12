@@ -32,7 +32,6 @@ public class GameRoundTask extends BukkitRunnable {
             this.cancel();
         }
         plugin.getLogger().info("GameRoundTask count:"+count);
-
     }
 
 }
