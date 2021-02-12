@@ -130,7 +130,7 @@ public class HoofPower extends JavaPlugin{
                 ruiner.teleport(ruinerbeginpos);
             }
 
-            new GameRoundTask(this).runTaskTimer(this, 0,20);
+            new GameRoundTask(this).runTaskTimer(this, 0,5);
         }
     }
 }
