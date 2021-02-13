@@ -39,13 +39,6 @@ public class EventListener implements Listener{
         HoofPower.instance.getLogger().info(infocontent);
     }
 
-    //禁止
-    @EventHandler
-    public void forbideRun(PlayerToggleSprintEvent e){
-        Loginfo(e.getPlayer().getVelocity()+"");
-        e.getPlayer().setSprinting(false);
-    }
-
     @EventHandler
     public void onAttack(PlayerInteractEntityEvent e){
         Player player= e.getPlayer();
