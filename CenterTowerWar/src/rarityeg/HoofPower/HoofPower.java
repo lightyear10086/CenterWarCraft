@@ -72,6 +72,7 @@ public class HoofPower extends JavaPlugin{
                 if("ruin".equals(args[0]) && PlayerinTeamCheck((Player)sender)){
                     ruinerplayerlist.add((Player) sender);
                 }
+                new Menu((Player) sender).open();
                 break;
             case "startgame":
                 if(builderplayerlist.size()!=ruinerplayerlist.size() || builderplayerlist.size()<LeastPlayer || ruinerplayerlist.size()<LeastPlayer){
@@ -119,9 +120,9 @@ public class HoofPower extends JavaPlugin{
             World playerWorld=Bukkit.getWorld("world");
 
             //建设方开局和重生坐标点
-            Location builderbeginpos=new Location(playerWorld,x,y+14,z);
+            Location builderbeginpos=new Location(playerWorld,x,y,z+14);
             //拆除方开局和重生坐标点
-            Location ruinerbeginpos=new Location(playerWorld,x,y-10,z);
+            Location ruinerbeginpos=new Location(playerWorld,x,y,z-10);
             //将所有玩家传送到对应队伍开局坐标点
             for(Player builder:builderplayerlist){
                 builder.teleport(builderbeginpos);

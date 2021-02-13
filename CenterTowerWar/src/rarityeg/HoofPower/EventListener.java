@@ -9,6 +9,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
+import org.bukkit.event.player.PlayerToggleSprintEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
@@ -36,6 +37,13 @@ public class EventListener implements Listener{
 
     public void Loginfo(String infocontent){
         HoofPower.instance.getLogger().info(infocontent);
+    }
+
+    //禁止
+    @EventHandler
+    public void forbideRun(PlayerToggleSprintEvent e){
+        Loginfo(e.getPlayer().getVelocity()+"");
+        e.getPlayer().setSprinting(false);
     }
 
     @EventHandler
