@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import rarityeg.HoofPower.task.GameRoundTask;
 
+
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,6 +19,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class HoofPower extends JavaPlugin{
     public static JavaPlugin instance;
+    public static HoofPower hpinstance;
     public static String playerhero="";
     public List<String> commandslist=new ArrayList<>();
     public List<Player> builderplayerlist=new ArrayList<>();
@@ -44,12 +46,14 @@ public class HoofPower extends JavaPlugin{
         commandslist.add("cd");
         commandslist.add("jointeam");
         commandslist.add("createtower");
+        commandslist.add("setlife");
     }
 
     @Override
     public void onEnable(){
         Bukkit.getPluginManager().registerEvents(new EventListener(),this);
         instance=this;
+        hpinstance=this;
     }
 
     @Override
@@ -80,6 +84,12 @@ public class HoofPower extends JavaPlugin{
                     break;
                 }
                 startGameCommand(sender, command, label, args);
+                break;
+            case "setlife":
+                ((Player) sender).setHealthScale(Double.parseDouble(args[0]));
+                break;
+            case "pt":
+                ((Player) sender).performCommand("");
                 break;
             default:
                 return false;

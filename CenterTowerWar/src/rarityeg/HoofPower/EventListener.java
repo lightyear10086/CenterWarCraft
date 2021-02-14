@@ -1,15 +1,15 @@
 package rarityeg.HoofPower;
 
+import com.google.common.eventbus.Subscribe;
+import net.minecraft.server.v1_16_R3.Block;
+import net.minecraft.server.v1_16_R3.Blocks;
 import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerItemDamageEvent;
-import org.bukkit.event.player.PlayerToggleSprintEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
@@ -24,6 +24,34 @@ public class EventListener implements Listener{
     public static final Random RANDOM=new Random();
     public List<Entity> BeAimed= new ArrayList<>();
 
+    //当玩家位于草丛中时对敌对队伍所有玩家隐身
+    @EventHandler
+    public void Hide(PlayerMoveEvent e){
+        Player player=e.getPlayer();
+        if(player.getLocation().getBlock().getType()==Material.GRASS){
+            if(HoofPower.hpinstance.ruinerplayerlist.contains(player)){
+                HoofPower.hpinstance.builderplayerlist.forEach((enamys)->{
+                    enamys.hidePlayer(HoofPower.instance,player);
+                });
+            }
+            if(HoofPower.hpinstance.builderplayerlist.contains(player)){
+                HoofPower.hpinstance.ruinerplayerlist.forEach((enamys)->{
+                    enamys.hidePlayer(HoofPower.instance,player);
+                });
+            }
+        }else{
+            if(HoofPower.hpinstance.ruinerplayerlist.contains(player)){
+                HoofPower.hpinstance.builderplayerlist.forEach((enamys)->{
+                    enamys.showPlayer(HoofPower.instance,player);
+                });
+            }
+            if(HoofPower.hpinstance.builderplayerlist.contains(player)){
+                HoofPower.hpinstance.ruinerplayerlist.forEach((enamys)->{
+                    enamys.showPlayer(HoofPower.instance,player);
+                });
+            }
+        }
+    }
     //提交代码23
     public void GivePlayerItem(Player player,ItemStack itemStack,String name,String[] info){
         ItemStack hoe=itemStack;

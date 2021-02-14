@@ -12,3 +12,9 @@ commands:
   startgame:
     usage: "/startgame"
     description: "Create the center tower and game start."
+  setlife:
+    usage: "/setlife"
+    description: "Set your life point."
+  pt:
+    usage: "/pt"
+    description: "test"
