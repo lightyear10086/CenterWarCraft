@@ -7,14 +7,14 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import rarityeg.HoofPower.hero.HeroBase;
 import rarityeg.HoofPower.task.GameRoundTask;
 
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class HoofPower extends JavaPlugin{
@@ -24,6 +24,7 @@ public class HoofPower extends JavaPlugin{
     public List<String> commandslist=new ArrayList<>();
     public List<Player> builderplayerlist=new ArrayList<>();
     public List<Player> ruinerplayerlist=new ArrayList<>();
+    public Map<String, HeroBase> heroList = new HashMap<>();
     private Integer LeastPlayer=1;//每队人数，两队人数都达到这个数后才能开始（指执行/startgame）游戏
     public static List<Block> towerBlockList = new CopyOnWriteArrayList<>();
 
@@ -94,7 +95,6 @@ public class HoofPower extends JavaPlugin{
             default:
                 return false;
         }
-
         return true;
     }
 
