@@ -9,20 +9,23 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.*;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryView;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import rarityeg.HoofPower.hero.HeroBase;
+import rarityeg.HoofPower.hero.WildFarmer;
 
 import java.util.*;
 
 public class EventListener implements Listener{
     public static final Random RANDOM=new Random();
     public List<Entity> BeAimed= new ArrayList<>();
+
 
     //当玩家位于草丛中时对敌对队伍所有玩家隐身
     @EventHandler
@@ -67,6 +70,7 @@ public class EventListener implements Listener{
         HoofPower.instance.getLogger().info(infocontent);
     }
 
+    /*
     @EventHandler
     public void onAttack(PlayerInteractEntityEvent e){
         Player player= e.getPlayer();
@@ -105,7 +109,7 @@ public class EventListener implements Listener{
         }
         return;
     }
-
+    */
     @EventHandler
     public void onClick(InventoryClickEvent e){
         Player player= (Player)e.getWhoClicked();
@@ -121,6 +125,7 @@ public class EventListener implements Listener{
                 return;
             }
             //...
+            /*
             if(clickedItem.getItemMeta().getDisplayName().equals(Menu.QUIT_SERVER)){
                 player.kickPlayer("您已离开服务器");
                 return;
@@ -148,18 +153,10 @@ public class EventListener implements Listener{
                     player.openBook(ann);
                 return;
             }
+            */
             if(clickedItem.getItemMeta().getDisplayName().equals(Menu.HERO_FARMER)){
+                HoofPower.hpinstance.putHeroMap(player.getName(), new WildFarmer(player));
                 player.closeInventory();
-                HoofPower.playerhero="farmer";
-                ItemStack hoe=new ItemStack(Material.DIAMOND_HOE);
-                ItemMeta hoeMeta=hoe.getItemMeta();
-                hoeMeta.setDisplayName("魔种攫取");
-                hoeMeta.setLore(Arrays.asList("使用此锄头平A敌对单位时获得1个种子，最多32个","获得的种子可以种在草方块上，在1min后成熟为小麦","我方英雄可收获小麦，在合成台处合成面包，食用面包可回复3/5/8点生命"));
-                hoe.setItemMeta(hoeMeta);
-                Inventory playerinventory=player.getInventory();
-                playerinventory.addItem(hoe);
-
-                GivePlayerItem(player,new ItemStack(Material.GOLDEN_HOE),"收割季节",new String[]{"对所有被魔种标记的目标造成3点伤害"});
             }
         }
     }

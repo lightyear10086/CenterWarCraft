@@ -9,12 +9,16 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.*;
 import rarityeg.HoofPower.hero.HeroBase;
 import rarityeg.HoofPower.task.GameRoundTask;
 
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class HoofPower extends JavaPlugin{
@@ -24,7 +28,7 @@ public class HoofPower extends JavaPlugin{
     public List<String> commandslist=new ArrayList<>();
     public List<Player> builderplayerlist=new ArrayList<>();
     public List<Player> ruinerplayerlist=new ArrayList<>();
-    public Map<String, HeroBase> heroList = new HashMap<>();
+    public Map<String, HeroBase> heroMap = new ConcurrentHashMap<>();
     private Integer LeastPlayer=1;//每队人数，两队人数都达到这个数后才能开始（指执行/startgame）游戏
     public static List<Block> towerBlockList = new CopyOnWriteArrayList<>();
 
@@ -48,6 +52,7 @@ public class HoofPower extends JavaPlugin{
         commandslist.add("jointeam");
         commandslist.add("createtower");
         commandslist.add("setlife");
+
     }
 
     @Override
@@ -143,5 +148,15 @@ public class HoofPower extends JavaPlugin{
 
             new GameRoundTask(this).runTaskTimer(this, 0,5);
         }
+    }
+
+    public HeroBase getHeroMap(String name) throws Exception {
+        Properties properties = new Properties();
+        properties.load(new FileReader(""));
+        return this.heroMap.get(name);
+    }
+
+    public void putHeroMap(String name, HeroBase hero) {
+        this.heroMap.put(name, hero);
     }
 }
